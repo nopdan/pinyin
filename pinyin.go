@@ -2,7 +2,9 @@ package pinyin
 
 import (
 	"bufio"
+	"bytes"
 	"fmt"
+	"io"
 	"strings"
 
 	"github.com/nopdan/ku"
@@ -22,7 +24,7 @@ func New() *Pinyin {
 }
 
 // 添加一条数据
-func (p *Pinyin) AddData(word string, pinyin ...string) {
+func (p *Pinyin) AddOne(word string, pinyin ...string) {
 	chars := []rune(word)
 	// 词组
 	if len(chars) != 1 {
@@ -40,11 +42,22 @@ func (p *Pinyin) AddData(word string, pinyin ...string) {
 }
 
 // 添加数据文件
-func (p *Pinyin) AddDataFile(path string) {
+func (p *Pinyin) AddFile(path string) {
 	rd, err := ku.Read(path)
 	if err != nil {
 		fmt.Printf("err: %v\n", err)
 	}
+	p.AddReader(rd)
+}
+
+func (p *Pinyin) AddData(data []byte) {
+	brd := bytes.NewReader(data)
+	rd := ku.NewReader(brd)
+	p.AddReader(rd)
+}
+
+// 输入 utf-8 编码格式的字节流
+func (p *Pinyin) AddReader(rd io.Reader) {
 	scan := bufio.NewScanner(rd)
 	for scan.Scan() {
 		line := scan.Text()
@@ -54,6 +67,6 @@ func (p *Pinyin) AddDataFile(path string) {
 			return
 		}
 		pinyin := strings.Split(tmp[1], " ")
-		p.AddData(tmp[0], pinyin...)
+		p.AddOne(tmp[0], pinyin...)
 	}
 }

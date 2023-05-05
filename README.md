@@ -6,7 +6,6 @@
 
 [![GitHub Repo stars](https://img.shields.io/github/stars/flowerime/pinyin)](https://github.com/flowerime/pinyin/stargazers)
 [![GitHub forks](https://img.shields.io/github/forks/flowerime/pinyin)](https://github.com/flowerime/pinyin/network/members)
-[![GitHub release (latest by date)](https://img.shields.io/github/v/release/flowerime/pinyin)](https://github.com/flowerime/pinyin/releases)
 ![GitHub repo size](https://img.shields.io/github/repo-size/flowerime/pinyin)
 ![GitHub](https://img.shields.io/github/license/flowerime/pinyin)
 
@@ -25,7 +24,7 @@ go get -u github.com/flowerime/pinyin
 
 ## 使用
 
-默认不带数据，需要使用 `AddData` 和 `AddDataFile` 添加。
+默认不带数据，需要使用 `AddOne` 和 `AddFile` 添加。
 
 ```go
 // 导入
@@ -36,7 +35,7 @@ func main() {
 	p := pinyin.New()
 
 	// // 添加数据文件
-	p.AddDataFile("test.txt")
+	p.AddFile("test.txt")
 	fmt.Println(p.Match("会计师"))
 	// [kuai ji shi]
 
@@ -45,7 +44,7 @@ func main() {
 	// [yi ge ren shen jia le hui yi]
 
 	// 添加一条数据
-	p.AddData("一个人", "yi", "ge", "ren")
+	p.AddOne("一个人", "yi", "ge", "ren")
 	fmt.Println(p.Match("一个人参加了会议"))
 	// [yi ge ren can jia le hui yi]
 
