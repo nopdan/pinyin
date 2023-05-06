@@ -38,12 +38,7 @@ func (p *Pinyin) addOne(word string, pinyin []string, freq int) {
 	}
 	// 单字
 	char := chars[0]
-	if _, ok := p.Chars[char]; !ok {
-		p.Chars[char] = pinyin
-	} else {
-		p.Chars[char] = append(p.Chars[char], pinyin...)
-		p.Chars[char] = ku.Unique(p.Chars[char])
-	}
+	p.Chars[char] = ku.Unique(pinyin)
 }
 
 // 添加数据文件
