@@ -62,9 +62,12 @@ func (p *Pinyin) AddReader(rd io.Reader) {
 	for scan.Scan() {
 		line := scan.Text()
 		tmp := strings.Split(line, "\t")
-		if len(tmp) < 2 || line == "" {
+		if line == "" {
+			continue
+		}
+		if len(tmp) < 2 {
 			fmt.Printf("数据有误: %v\n", line)
-			return
+			continue
 		}
 		freq := 1
 		if len(tmp) >= 3 {
