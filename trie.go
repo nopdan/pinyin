@@ -4,6 +4,7 @@ package pinyin
 type trie struct {
 	ch     map[rune]*trie // children
 	pinyin []string
+	freq   int
 }
 
 func newTrie() *trie {
@@ -13,7 +14,7 @@ func newTrie() *trie {
 }
 
 // 插入一个词
-func (t *trie) insert(word string, pinyin []string) {
+func (t *trie) insert(word string, pinyin []string, freq int) {
 	for _, v := range word {
 		if t.ch == nil {
 			t.ch = make(map[rune]*trie)
@@ -24,7 +25,10 @@ func (t *trie) insert(word string, pinyin []string) {
 		t = t.ch[v]
 	}
 	// 插入同一个词会覆盖前面的
-	t.pinyin = pinyin
+	if freq >= t.freq {
+		t.freq = freq
+		t.pinyin = pinyin
+	}
 }
 
 // 按词最长匹配

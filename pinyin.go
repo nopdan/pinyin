@@ -5,6 +5,7 @@ import (
 	"bytes"
 	"fmt"
 	"io"
+	"strconv"
 	"strings"
 
 	"github.com/nopdan/ku"
@@ -25,10 +26,14 @@ func New() *Pinyin {
 
 // 添加一条数据
 func (p *Pinyin) AddOne(word string, pinyin ...string) {
+	p.addOne(word, pinyin, 1)
+}
+
+func (p *Pinyin) addOne(word string, pinyin []string, freq int) {
 	chars := []rune(word)
 	// 词组
 	if len(chars) != 1 {
-		p.Words.insert(word, pinyin)
+		p.Words.insert(word, pinyin, freq)
 		return
 	}
 	// 单字
@@ -62,11 +67,18 @@ func (p *Pinyin) AddReader(rd io.Reader) {
 	for scan.Scan() {
 		line := scan.Text()
 		tmp := strings.Split(line, "\t")
-		if len(tmp) != 2 || line == "" {
+		if len(tmp) < 2 || line == "" {
 			fmt.Printf("数据有误: %v\n", line)
 			return
 		}
+		freq := 1
+		if len(tmp) >= 3 {
+			num, err := strconv.Atoi(tmp[2])
+			if err == nil {
+				freq = num
+			}
+		}
 		pinyin := strings.Split(tmp[1], " ")
-		p.AddOne(tmp[0], pinyin...)
+		p.addOne(tmp[0], pinyin, freq)
 	}
 }
