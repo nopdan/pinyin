@@ -3,7 +3,10 @@ package pinyin
 func (p *Pinyin) Match(word string) []string {
 	chars := []rune(word)
 	if len(chars) == 1 {
-		return p.Chars[chars[0]]
+		if v, ok := p.Chars[chars[0]]; ok {
+			return v
+		}
+		return []string{word}
 	}
 
 	ret := make([]string, 0, len(chars))
