@@ -4,10 +4,10 @@
 
 ## 汉字转拼音
 
-[![GitHub Repo stars](https://img.shields.io/github/stars/flowerime/pinyin)](https://github.com/flowerime/pinyin/stargazers)
-[![GitHub forks](https://img.shields.io/github/forks/flowerime/pinyin)](https://github.com/flowerime/pinyin/network/members)
-![GitHub repo size](https://img.shields.io/github/repo-size/flowerime/pinyin)
-![GitHub](https://img.shields.io/github/license/flowerime/pinyin)
+[![GitHub Repo stars](https://img.shields.io/github/stars/nopdan/pinyin)](https://github.com/nopdan/pinyin/stargazers)
+[![GitHub forks](https://img.shields.io/github/forks/nopdan/pinyin)](https://github.com/nopdan/pinyin/network/members)
+![GitHub repo size](https://img.shields.io/github/repo-size/nopdan/pinyin)
+![GitHub](https://img.shields.io/github/license/nopdan/pinyin)
 
 主要针对拼音输入法词库
 
@@ -19,7 +19,7 @@
 ## 安装
 
 ```sh
-go get -u github.com/flowerime/pinyin
+go get -u github.com/nopdan/pinyin
 ```
 
 ## 使用
@@ -28,7 +28,7 @@ go get -u github.com/flowerime/pinyin
 
 ```go
 // 导入
-import "github.com/flowerime/pinyin"
+import "github.com/nopdan/pinyin"
 
 // 基础
 func main() {
